@@ -1,0 +1,43 @@
+pragma solidity >=0.4.22 <0.7.0;
+
+contract SimpleStorage {
+    address public medecin;
+    mapping(address => bool) private patient;
+    uint private voteCount
+    address[] private specialiste;
+
+    struct Traitement {
+        bool voted;
+        string maladie;
+        string medicaments;
+    }
+
+    Traitement traitement;
+
+    constructor (address _patient, address[] memory _specialiste, string memory _maladie, string memory _medicaments, bool _voted) public {
+        medecin = msg.sender;
+        patient = _patient;
+        specialiste = _specialiste;
+        for(uint i=0; i< specialiste[i]){
+            patient[specialiste[i]] = true;
+        }
+
+    }
+
+    function definirTraitement(string memory _medicaments) public{
+        require (msg.sender == medecin, "L'adresse ne correspond pas au propriétaire du contrat");
+        traitement.medicaments = _medicaments;
+    }
+
+
+    function get(bool _vote) public  {
+    traitement.voted[msg.sender] = _vote;
+    }
+
+    function getVoteCount() public view returns(uint) {
+        require(msg.sender == nextCapitan);
+        return voteCount;
+    }
+    
+    
+}
